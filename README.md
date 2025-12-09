@@ -1,28 +1,39 @@
-# Heart Disease Prediction & Imbalance Handling
+# Heart Disease Risk Prediction (Educational Project)
 
-This project explores machine learning techniques to predict heart disease risk, specifically addressing the challenge of **severe class imbalance** in healthcare datasets. The primary goal was to maximize **Recall** to ensure potential heart disease cases are not missed.
+This project is an **educational demo** that predicts the risk of heart disease from basic clinical information (age, blood pressure, cholesterol, etc.).  
 
-## Project Overview
+It has two faces:
 
-- **Problem:** Predicting risk of heart disease (e.g., 10-year CHD risk).
-- **Challenge:** Datasets are often highly imbalanced (e.g., ~15% positive cases), causing standard models to bias towards the healthy class.
-- **Solution:** Implemented and compared strategies including **SMOTE**, **Risk Clustering**, and **Threshold Tuning**.
+- A **simple web app** (Streamlit) where you move sliders and get a risk prediction.
+- A set of **notebooks** that show the full machine-learning pipeline, including how to handle imbalanced medical data.
 
-## Key Techniques & Results
+> ⚠️ **Important:** This is **not** a medical device. It must **not** be used for real clinical decisions.
 
-1.  **Preprocessing:** Robust cleaning, imputing missing values, and feature scaling.
-2.  **Imbalance Handling:**
-    *   **Class Weighting:** Adjusted loss functions for models like Logistic Regression.
-    *   **SMOTE:** Generated synthetic minority samples to balance training.
-    *   **Unsupervised Clustering:** Segmented patients into risk groups significantly aiding prediction.
-3.  **Models:**
-    *   Logistic Regression & Random Forest (Baseline).
-    *   Artificial Neural Networks (ANN) with regularization.
-4.  **Threshold Tuning:** Optimized decision thresholds to boost Recall from **~2% (Baseline)** to **~80%**, drastically reducing false negatives.
+---
 
-## Tech Stack
+## 1. What this project does (plain English)
 
-- **Python** (Pandas, NumPy)
-- **Scikit-learn** (Modeling, Preprocessing)
-- **Imbalanced-learn** (SMOTE, Pipeline)
-- **TensorFlow/Keras** (ANN)
+- You enter patient-style information (age, sex, blood pressure, cholesterol, etc.).
+- A trained **Random Forest** model estimates the probability that this person has heart disease.
+- Behind the scenes, the project shows:
+  - Why a **heavily imbalanced dataset** can give fake-good accuracy but miss real patients.
+  - How switching to a **better balanced dataset** + proper evaluation leads to much more trustworthy results.
+  - How to add a small **unsupervised step (K-Means clustering)** as a risk feature.
+
+The code and report are written as coursework for a machine learning module.
+
+---
+
+## 2. Quick start – run the demo app
+
+### Requirements
+
+- Python 3.9+ (3.10+ recommended)
+- `pip` installed
+
+### Install dependencies
+
+From the project root (`ML-Project/`):
+
+```bash
+pip install -r requirements.txt
