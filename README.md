@@ -1,39 +1,61 @@
-# Heart Disease Risk Prediction (Educational Project)
+# Heart Disease Risk Prediction
 
-This project is an **educational demo** that predicts the risk of heart disease from basic clinical information (age, blood pressure, cholesterol, etc.).  
+This project builds a machine learning pipeline to predict **heart disease** from basic clinical features (age, chest pain type, blood pressure, cholesterol, etc.).
 
-It has two faces:
-
-- A **simple web app** (Streamlit) where you move sliders and get a risk prediction.
-- A set of **notebooks** that show the full machine-learning pipeline, including how to handle imbalanced medical data.
-
-> ⚠️ **Important:** This is **not** a medical device. It must **not** be used for real clinical decisions.
+The main goal:  
+Build a model that can detect patients with heart disease reliably, while showing how **data quality and class balance** can completely change model behaviour.
 
 ---
 
-## 1. What this project does (plain English)
+## Why there are 2 datasets
 
-- You enter patient-style information (age, sex, blood pressure, cholesterol, etc.).
-- A trained **Random Forest** model estimates the probability that this person has heart disease.
-- Behind the scenes, the project shows:
-  - Why a **heavily imbalanced dataset** can give fake-good accuracy but miss real patients.
-  - How switching to a **better balanced dataset** + proper evaluation leads to much more trustworthy results.
-  - How to add a small **unsupervised step (K-Means clustering)** as a risk feature.
+### Dataset 1 – Large but badly imbalanced
+- File: `Dataset_1/dataset/heart_disease.csv`
+- ~4,200 samples with **~15% positive (disease)**.
+- Problem:
+  - Models (Logistic Regression, Random Forest, even ANN) could reach **high accuracy**, but:
+    - Recall for the disease class was extremely low in many setups (e.g. a few %).
+  - Even after:
+    - Class weights  
+    - SMOTE  
+    - K-Means risk clustering  
+    - Threshold tuning  
+  - You either:
+    - Miss most real patients, or  
+    - Flag too many healthy people as diseased.
 
-The code and report are written as coursework for a machine learning module.
+Result: Dataset 1 is kept to **document and demonstrate** the imbalance problem and the failed attempts. It is *not* used for final results or deployment.
 
 ---
 
-## 2. Quick start – run the demo app
+### Dataset 2 – Smaller but reasonably balanced (UCI-style)
+- File: `Dataset_2/dataset/heart_disease_uci.csv`
+- ~900 patients, standard UCI-style heart disease data.
+- Target:
+  - Original `num` ∈ {0,1,2,3,4}  
+  - Converted to binary:
+    - `0`  → no disease  
+    - `1–4` → disease
+- Class balance is much better, so metrics like recall, F1, and ROC-AUC actually reflect how well the model detects heart disease.
 
-### Requirements
+On this dataset the final pipeline is built:
 
-- Python 3.9+ (3.10+ recommended)
-- `pip` installed
+- Clean preprocessing (imputation, encoding, scaling)
+- Logistic Regression vs Random Forest comparison
+- Simple unsupervised step (K-Means) used as a **risk_cluster** feature
+- Cross-validation and basic hyperparameter tuning
+- Final **Random Forest pipeline** saved as:
+  - `heart_rf_deploy_pipeline.joblib`
 
-### Install dependencies
+All final results in the report and the Streamlit demo are based on **Dataset 2**.
+
+---
+
+## How to run
 
 From the project root (`ML-Project/`):
+
+### 1. Install dependencies
 
 ```bash
 pip install -r requirements.txt
