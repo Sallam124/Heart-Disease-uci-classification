@@ -3,10 +3,8 @@ import pandas as pd
 import joblib
 from pathlib import Path
 
-# ==== 1. Load the saved pipeline ====
-MODEL_PATH = Path(
-    r"C:\Users\salla\OneDrive\Desktop\ML Project\Dataset_2\Models\models\outputs\models\heart_rf_deploy_pipeline.joblib"
-)
+BASE_DIR = Path(__file__).resolve().parent  
+MODEL_PATH = BASE_DIR / "heart_rf_deploy_pipeline.joblib"
 
 @st.cache_resource
 def load_model():
